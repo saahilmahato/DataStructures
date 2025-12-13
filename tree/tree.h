@@ -7,12 +7,12 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
-TreeNode *createTree(void);
+TreeNode *create_tree(void);
 
-void inorderTraversal(TreeNode *root);
+void inorder_traversal(TreeNode *root);
 
-void preorderTraversal(TreeNode *root);
+void preorder_traversal(TreeNode *root);
 
-void postorderTraversal(TreeNode *root);
+void postorder_traversal(TreeNode *root);
 
 #endif

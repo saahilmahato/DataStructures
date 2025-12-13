@@ -6,20 +6,20 @@ typedef struct ListNode {
     struct ListNode *next;
 } ListNode;
 
-size_t getLength(ListNode *head);
+size_t get_length(const ListNode *head);
 
-bool insertFirst(ListNode **head, int data);
+bool insert_first(ListNode **head, int data);
 
-bool insertLast(ListNode **head, int data);
+bool insert_last(ListNode **head, int data);
 
-bool insertAtPosition(ListNode **head, int data, size_t position);
+bool insert_at_position(ListNode **head, int data, size_t position);
 
-bool deleteFirst(ListNode **head);
+bool delete_first(ListNode **head);
 
-bool deleteLast(ListNode **head);
+bool delete_last(ListNode **head);
 
-bool deleteFromPosition(ListNode **head, size_t position);
+bool delete_from_position(ListNode **head, size_t position);
 
-void deleteList(ListNode **head);
+void delete_list(ListNode **head);
 
 #endif

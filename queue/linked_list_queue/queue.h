@@ -12,9 +12,9 @@ typedef struct Queue {
     ListNode *rear;
 } Queue;
 
-Queue *createQueue(void);
+Queue *create_queue(void);
 
-void destroy(Queue **q);
+void delete_queue(Queue **q);
 
 bool enqueue(Queue *q, int value);
 
@@ -22,7 +22,7 @@ bool dequeue(Queue *q, int *out_value);
 
 bool front(const Queue *q, int *out_value);
 
-bool isEmpty(const Queue *q);
+bool is_empty(const Queue *q);
 
 size_t size(const Queue *q);
 

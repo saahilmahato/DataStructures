@@ -2,15 +2,28 @@
 
 #include "stack.h"
 
-Stack *createStack() {
+Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));
     if (stack)
-        stack->top = NULL;
+        stack->top = nullptr;
 
     return stack;
 }
 
-bool isEmpty(const Stack *stack) { return !stack || !stack->top; }
+void delete_stack(Stack **stack) {
+    if (stack && *stack) {
+        while ((*stack)->top) {
+            ListNode *toDelete = (*stack)->top;
+            (*stack)->top = toDelete->next;
+            free(toDelete);
+        }
+
+        free(*stack);
+        *stack = nullptr;
+    }
+}
+
+bool is_empty(const Stack *stack) { return !stack || !stack->top; }
 
 bool push(Stack *stack, const int data) {
     if (!stack)
@@ -28,7 +41,7 @@ bool push(Stack *stack, const int data) {
 }
 
 bool pop(Stack *stack, int *outValue) {
-    if (!stack || isEmpty(stack))
+    if (is_empty(stack))
         return false;
 
     ListNode *toDelete = stack->top;
@@ -43,24 +56,11 @@ bool pop(Stack *stack, int *outValue) {
 }
 
 bool peek(const Stack *stack, int *outValue) {
-    if (!stack || isEmpty(stack))
+    if (is_empty(stack))
         return false;
 
     if (outValue)
         *outValue = stack->top->data;
 
     return true;
-}
-
-void freeStack(Stack **stack) {
-    if (stack && *stack) {
-        while ((*stack)->top) {
-            ListNode *toDelete = (*stack)->top;
-            (*stack)->top = toDelete->next;
-            free(toDelete);
-        }
-
-        free(*stack);
-        *stack = NULL;
-    }
 }

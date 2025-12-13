@@ -3,7 +3,7 @@
 
 #include "tree.h"
 
-TreeNode *createTree(void) {
+TreeNode *create_tree(void) {
     TreeNode *root = malloc(sizeof(*root));
     if (!root)
         return nullptr;
@@ -11,29 +11,29 @@ TreeNode *createTree(void) {
     return root;
 }
 
-void inorderTraversal(TreeNode *root) {
+void inorder_traversal(TreeNode *root) {
     if (!root)
         return;
 
-    inorderTraversal(root->left);
+    inorder_traversal(root->left);
     printf("%d", root->data);
-    inorderTraversal(root->right);
+    inorder_traversal(root->right);
 }
 
-void preorderTraversal(TreeNode *root) {
+void preorder_traversal(TreeNode *root) {
     if (!root)
         return;
 
     printf("%d", root->data);
-    preorderTraversal(root->left);
-    preorderTraversal(root->right);
+    preorder_traversal(root->left);
+    preorder_traversal(root->right);
 }
 
-void postOrderTraversal(TreeNode *root) {
+void postorder_traversal(TreeNode *root) {
     if (!root)
         return;
 
-    postOrderTraversal(root->left);
-    postOrderTraversal(root->right);
+    postOrder_traversal(root->left);
+    postOrder_traversal(root->right);
     printf("%d", root->data);
 }

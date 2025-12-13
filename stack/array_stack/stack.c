@@ -3,15 +3,15 @@
 
 #include "stack.h"
 
-Stack *createStack() {
+Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));
     if (!stack)
-        return NULL;
+        return nullptr;
 
     stack->array = malloc(INITIAL_CAPACITY * sizeof(*stack->array));
     if (!stack->array) {
         free(stack);
-        return NULL;
+        return nullptr;
     }
 
     stack->top = -1;
@@ -20,7 +20,7 @@ Stack *createStack() {
     return stack;
 }
 
-bool resize(Stack *stack) {
+bool resize_stack(Stack *stack) {
     if (!stack || stack->capacity > SIZE_MAX / GROWTH_FACTOR)
         return false;
 
@@ -35,15 +35,23 @@ bool resize(Stack *stack) {
     return true;
 }
 
-bool isEmpty(const Stack *stack) { return !stack || stack->top < 0; }
+void delete_stack(Stack **stack) {
+    if (stack && *stack) {
+        free((*stack)->array);
+        free(*stack);
+        *stack = nullptr;
+    }
+}
 
-bool isFull(const Stack *stack) { return stack && stack->top == (int) stack->capacity - 1; }
+bool is_empty(const Stack *stack) { return !stack || stack->top < 0; }
+
+bool is_full(const Stack *stack) { return stack && stack->top == (int) stack->capacity - 1; }
 
 bool push(Stack *stack, const int data) {
     if (!stack)
         return false;
 
-    if (isFull(stack) && !resize(stack))
+    if (is_full(stack) && !resize_stack(stack))
         return false;
 
     stack->array[++stack->top] = data;
@@ -51,7 +59,7 @@ bool push(Stack *stack, const int data) {
 }
 
 bool pop(Stack *stack, int *outValue) {
-    if (!stack || isEmpty(stack))
+    if (is_empty(stack))
         return false;
 
     if (outValue)
@@ -63,7 +71,7 @@ bool pop(Stack *stack, int *outValue) {
 }
 
 bool peek(const Stack *stack, int *outValue) {
-    if (!stack || isEmpty(stack))
+    if (is_empty(stack))
         return false;
 
     if (outValue)
@@ -73,11 +81,3 @@ bool peek(const Stack *stack, int *outValue) {
 }
 
 int size(const Stack *stack) { return stack ? stack->top + 1 : 0; }
-
-void destroy(Stack **stack) {
-    if (stack && *stack) {
-        free((*stack)->array);
-        free(*stack);
-        *stack = NULL;
-    }
-}

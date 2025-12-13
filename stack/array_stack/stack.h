@@ -10,15 +10,15 @@ typedef struct {
     int *array;
 } Stack;
 
-Stack *createStack();
+Stack *create_stack();
 
-void destroy(Stack **stack);
+bool resize_stack(Stack *stack);
 
-bool resize(Stack *stack);
+void delete_stack(Stack **stack);
 
-bool isEmpty(const Stack *stack);
+bool is_empty(const Stack *stack);
 
-bool isFull(const Stack *stack);
+bool is_full(const Stack *stack);
 
 bool push(Stack *stack, int data);
 

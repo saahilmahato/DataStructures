@@ -3,15 +3,15 @@
 
 #include "queue.h"
 
-Queue *createQueue(void) {
+Queue *create_queue(void) {
     Queue *q = malloc(sizeof(*q));
     if (!q)
-        return NULL;
+        return nullptr;
 
     q->array = malloc(INITIAL_CAPACITY * sizeof(int));
     if (!q->array) {
         free(q);
-        return NULL;
+        return nullptr;
     }
 
     q->capacity = INITIAL_CAPACITY;
@@ -20,7 +20,7 @@ Queue *createQueue(void) {
     return q;
 }
 
-bool resize(Queue *q) {
+bool resize_queue(Queue *q) {
     if (!q || q->capacity > SIZE_MAX / GROWTH_FACTOR) {
         return false;
     }
@@ -42,11 +42,19 @@ bool resize(Queue *q) {
     return true;
 }
 
+void delete_queue(Queue **q) {
+    if (q && *q) {
+        free((*q)->array);
+        free(*q);
+        *q = nullptr;
+    }
+}
+
 bool enqueue(Queue *q, const int value) {
     if (!q)
         return false;
 
-    if (isFull(q) && !resize(q))
+    if (is_full(q) && !resize_queue(q))
         return false;
 
     q->array[q->rear] = value;
@@ -57,7 +65,7 @@ bool enqueue(Queue *q, const int value) {
 }
 
 bool dequeue(Queue *q, int *out_value) {
-    if (!q || isEmpty(q))
+    if (!q || is_empty(q))
         return false;
 
     if (out_value)
@@ -70,7 +78,7 @@ bool dequeue(Queue *q, int *out_value) {
 }
 
 bool front(const Queue *q, int *out_value) {
-    if (!q || isEmpty(q))
+    if (!q || is_empty(q))
         return false;
 
     if (out_value)
@@ -79,16 +87,8 @@ bool front(const Queue *q, int *out_value) {
     return true;
 }
 
-bool isEmpty(const Queue *q) { return !q || q->size == 0; }
+bool is_empty(const Queue *q) { return !q || q->size == 0; }
 
-bool isFull(const Queue *q) { return q && q->size == q->capacity; }
+bool is_full(const Queue *q) { return q && q->size == q->capacity; }
 
 size_t size(const Queue *q) { return q ? q->size : 0; }
-
-void destroy(Queue **q) {
-    if (q && *q) {
-        free((*q)->array);
-        free(*q);
-        *q = NULL;
-    }
-}

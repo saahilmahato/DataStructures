@@ -2,16 +2,29 @@
 
 #include "queue.h"
 
-Queue *createQueue(void) {
+Queue *create_queue(void) {
     Queue *q = malloc(sizeof(*q));
     if (!q)
-        return NULL;
+        return nullptr;
 
-    q->front = NULL;
-    q->rear = NULL;
+    q->front = nullptr;
+    q->rear = nullptr;
     q->size = 0;
 
     return q;
+}
+
+void delete_queue(Queue **q) {
+    if (q && *q) {
+        while ((*q)->front) {
+            ListNode *toDelete = (*q)->front;
+            (*q)->front = (*q)->front->next;
+            free(toDelete);
+        }
+
+        free(*q);
+        *q = nullptr;
+    }
 }
 
 bool enqueue(Queue *q, const int value) {
@@ -23,9 +36,9 @@ bool enqueue(Queue *q, const int value) {
         return false;
 
     newNode->data = value;
-    newNode->next = NULL;
+    newNode->next = nullptr;
 
-    if (isEmpty(q)) {
+    if (is_empty(q)) {
         q->front = newNode;
         q->rear = newNode;
     } else {
@@ -50,7 +63,7 @@ bool dequeue(Queue *q, int *out_value) {
     free(toDelete);
 
     if (!q->front)
-        q->rear = NULL;
+        q->rear = nullptr;
 
     q->size--;
 
@@ -67,19 +80,6 @@ bool front(const Queue *q, int *out_value) {
     return true;
 }
 
-bool isEmpty(const Queue *q) { return !q || q->size == 0; }
+bool is_empty(const Queue *q) { return !q || q->size == 0; }
 
 size_t size(const Queue *q) { return q ? q->size : 0; }
-
-void destroy(Queue **q) {
-    if (q && *q) {
-        while ((*q)->front) {
-            ListNode *toDelete = (*q)->front;
-            (*q)->front = (*q)->front->next;
-            free(toDelete);
-        }
-
-        free(*q);
-        *q = NULL;
-    }
-}
