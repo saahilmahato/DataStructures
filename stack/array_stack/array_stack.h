@@ -1,5 +1,5 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef ARRAY_STACK_H
+#define ARRAY_STACK_H
 
 #define INITIAL_CAPACITY 10
 #define GROWTH_FACTOR 2

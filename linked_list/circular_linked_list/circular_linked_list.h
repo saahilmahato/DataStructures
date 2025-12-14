@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef CIRCULAR_LINKED_LIST_H
+#define CIRCULAR_LINKED_LIST_H
 
 typedef struct ListNode {
     int data;

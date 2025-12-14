@@ -1,18 +1,14 @@
 #include <stdlib.h>
 
-#include "list.h"
+#include "singly_linked_list.h"
 
 size_t get_length(const ListNode *head) {
     size_t length = 0;
 
-    if (!head)
-        return length;
-
-    const ListNode *current = head;
-    do {
+    while (head) {
         length++;
-        current = current->next;
-    } while (current != head);
+        head = head->next;
+    }
 
     return length;
 }
@@ -23,19 +19,7 @@ bool insert_first(ListNode **head, const int data) {
         return false;
 
     newNode->data = data;
-
-    if (!*head) {
-        *head = newNode;
-        newNode->next = newNode;
-        return true;
-    }
-
-    ListNode *current = *head;
-    while (current->next != *head)
-        current = current->next;
-
     newNode->next = *head;
-    current->next = newNode;
     *head = newNode;
 
     return true;
@@ -47,18 +31,17 @@ bool insert_last(ListNode **head, const int data) {
         return false;
 
     newNode->data = data;
+    newNode->next = nullptr;
 
     if (!*head) {
         *head = newNode;
-        newNode->next = newNode;
         return true;
     }
 
     ListNode *current = *head;
-    while (current->next != *head)
+    while (current->next) {
         current = current->next;
-
-    newNode->next = *head;
+    }
     current->next = newNode;
 
     return true;
@@ -73,9 +56,10 @@ bool insert_at_position(ListNode **head, const int data, const size_t position) 
 
     ListNode *current = *head;
     for (size_t i = 0; i < position - 1; ++i) {
-        current = current->next;
-        if (current == *head)
+        if (!current->next)
             return false;
+
+        current = current->next;
     }
 
     ListNode *newNode = malloc(sizeof(*newNode));
@@ -94,21 +78,7 @@ bool delete_first(ListNode **head) {
         return false;
 
     ListNode *toDelete = *head;
-
-    if (toDelete->next == *head) {
-        free(toDelete);
-        *head = nullptr;
-        return true;
-    }
-
-    ListNode *current = *head;
-
-    while (current->next != *head)
-        current = current->next;
-
     *head = (*head)->next;
-    current->next = *head;
-
     free(toDelete);
 
     return true;
@@ -118,55 +88,52 @@ bool delete_last(ListNode **head) {
     if (!*head)
         return false;
 
-    ListNode *current = *head;
-
-    if (current->next == *head) {
-        free(current);
+    if (!(*head)->next) {
+        free(*head);
         *head = nullptr;
         return true;
     }
 
-    while (current->next->next != *head)
+    ListNode *current = *head;
+    while (current->next->next)
         current = current->next;
 
     free(current->next);
-    current->next = *head;
+    current->next = nullptr;
 
     return true;
 }
 
 bool delete_from_position(ListNode **head, const size_t position) {
-    if (!*head)
-        return false;
-
     if (position == 0)
         return delete_first(head);
 
+    if (!*head)
+        return false;
+
     ListNode *current = *head;
     for (size_t i = 0; i < position - 1; ++i) {
-        current = current->next;
-        if (current == *head)
+        if (!current->next)
             return false;
+
+        current = current->next;
     }
+    if (!current->next)
+        return false;
 
     ListNode *toDelete = current->next;
     current->next = toDelete->next;
-
     free(toDelete);
 
     return true;
 }
 
 void delete_list(ListNode **head) {
-    if (!*head)
-        return;
-
-    ListNode *current = *head;
-    do {
-        ListNode *temp = current;
-        current = current->next;
-        free(temp);
-    } while (current != *head);
+    while (*head) {
+        ListNode *toDelete = *head;
+        *head = (*head)->next;
+        free(toDelete);
+    }
 
     *head = nullptr;
 }

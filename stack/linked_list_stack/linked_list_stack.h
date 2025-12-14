@@ -1,5 +1,5 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef LINKED_LIST_STACK_H
+#define LINKED_LIST_STACK_H
 
 typedef struct ListNode {
     int data;

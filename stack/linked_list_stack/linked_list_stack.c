@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "stack.h"
+#include "linked_list_stack.h"
 
 Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));

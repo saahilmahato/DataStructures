@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "list.h"
+#include "doubly_linked_list.h"
 
 size_t get_length(const ListNode *head) {
     size_t length = 0;
@@ -20,6 +20,11 @@ bool insert_first(ListNode **head, const int data) {
 
     newNode->data = data;
     newNode->next = *head;
+    newNode->prev = nullptr;
+
+    if (*head)
+        (*head)->prev = newNode;
+
     *head = newNode;
 
     return true;
@@ -34,15 +39,17 @@ bool insert_last(ListNode **head, const int data) {
     newNode->next = nullptr;
 
     if (!*head) {
+        newNode->prev = nullptr;
         *head = newNode;
         return true;
     }
 
     ListNode *current = *head;
-    while (current->next) {
+    while (current->next)
         current = current->next;
-    }
+
     current->next = newNode;
+    newNode->prev = current;
 
     return true;
 }
@@ -67,8 +74,12 @@ bool insert_at_position(ListNode **head, const int data, const size_t position) 
         return false;
 
     newNode->data = data;
+    newNode->prev = current;
     newNode->next = current->next;
     current->next = newNode;
+
+    if (newNode->next)
+        newNode->next->prev = newNode;
 
     return true;
 }
@@ -79,6 +90,10 @@ bool delete_first(ListNode **head) {
 
     ListNode *toDelete = *head;
     *head = (*head)->next;
+
+    if (*head)
+        (*head)->prev = nullptr;
+
     free(toDelete);
 
     return true;
@@ -105,11 +120,11 @@ bool delete_last(ListNode **head) {
 }
 
 bool delete_from_position(ListNode **head, const size_t position) {
-    if (position == 0)
-        return delete_first(head);
-
     if (!*head)
         return false;
+
+    if (position == 0)
+        return delete_first(head);
 
     ListNode *current = *head;
     for (size_t i = 0; i < position - 1; ++i) {
@@ -118,11 +133,16 @@ bool delete_from_position(ListNode **head, const size_t position) {
 
         current = current->next;
     }
+
     if (!current->next)
         return false;
 
     ListNode *toDelete = current->next;
     current->next = toDelete->next;
+
+    if (toDelete->next)
+        toDelete->next->prev = current;
+
     free(toDelete);
 
     return true;

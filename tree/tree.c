@@ -33,7 +33,7 @@ void postorder_traversal(TreeNode *root) {
     if (!root)
         return;
 
-    postOrder_traversal(root->left);
-    postOrder_traversal(root->right);
+    postorder_traversal(root->left);
+    postorder_traversal(root->right);
     printf("%d", root->data);
 }

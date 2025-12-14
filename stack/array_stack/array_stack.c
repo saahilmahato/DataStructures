@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "stack.h"
+#include "array_stack.h"
 
 Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));
