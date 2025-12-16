@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 4.1)
 project(DSA C)
 
-set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_executable(DSA main.c
         linked_list/circular_linked_list/circular_linked_list.c

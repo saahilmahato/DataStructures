@@ -2,95 +2,120 @@
 #define TEST_H
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-/* Global counters for test results */
-extern int tests_run;
-extern int tests_failed;
+/* Test statistics */
+static int tests_run = 0;
+static int tests_passed = 0;
+static int tests_failed = 0;
 
-/* Helper function to report failure */
-static inline void test_fail(const char *file, int line, const char *msg) {
-    fprintf(stderr, "%s:%d: failure: %s\n", file, line, msg);
-    tests_failed++;
-}
+/* Color codes for terminal output */
+#define COLOR_GREEN "\033[0;32m"
+#define COLOR_RED "\033[0;31m"
+#define COLOR_RESET "\033[0m"
 
-/* Generic equality assertion that works well for both integers and pointers */
-#define ASSERT_EQUAL(expected, actual) \
+/* Assert macros */
+#define assert_equal(expected, actual, fmt) \
     do { \
         tests_run++; \
-        typeof(expected) __exp = (expected); \
-        typeof(actual) __act = (actual); \
-        \
-        if (__exp != __act) { \
-            char msg[256]; \
-            \
-            /* Detect if the type is a pointer (or integer the same size as a pointer) */ \
-            if (sizeof(__exp) == sizeof(void*)) { \
-                snprintf(msg, sizeof(msg), \
-                         "ASSERT_EQUAL failed: expected %p, got %p (" #expected " vs " #actual ")", \
-                         (void*)__exp, (void*)__act); \
-            } else { \
-                /* Assume integer-like type */ \
-                snprintf(msg, sizeof(msg), \
-                         "ASSERT_EQUAL failed: expected %lld, got %lld (" #expected " vs " #actual ")", \
-                         (long long)__exp, (long long)__act); \
-            } \
-            \
-            test_fail(__FILE__, __LINE__, msg); \
+        if ((expected) == (actual)) { \
+            tests_passed++; \
+            printf(COLOR_GREEN "✓" COLOR_RESET " PASS: %s:%d - Expected " fmt ", got " fmt "\n", \
+                   __FILE__, __LINE__, expected, actual); \
+        } else { \
+            tests_failed++; \
+            printf(COLOR_RED "✗" COLOR_RESET " FAIL: %s:%d - Expected " fmt ", but got " fmt "\n", \
+                   __FILE__, __LINE__, expected, actual); \
         } \
     } while (0)
 
-/* Other common assertions */
-#define ASSERT_NOT_EQUAL(not_expected, actual) \
-    do { \
-        tests_run++; \
-        typeof(not_expected) __nexp = (not_expected); \
-        typeof(actual) __act = (actual); \
-        \
-        if (__nexp == __act) { \
-            char msg[256]; \
-            if (sizeof(__nexp) == sizeof(void*)) { \
-                snprintf(msg, sizeof(msg), \
-                         "ASSERT_NOT_EQUAL failed: both are %p (" #not_expected " == " #actual ")", \
-                         (void*)__act); \
-            } else { \
-                snprintf(msg, sizeof(msg), \
-                         "ASSERT_NOT_EQUAL failed: both are %lld (" #not_expected " == " #actual ")", \
-                         (long long)__act); \
-            } \
-            test_fail(__FILE__, __LINE__, msg); \
-        } \
-    } while (0)
+#define assert_equal_int(expected, actual) \
+    assert_equal(expected, actual, "%d")
 
-#define ASSERT_TRUE(cond) \
-    do { \
-        tests_run++; \
-        if (!(cond)) { \
-            test_fail(__FILE__, __LINE__, "ASSERT_TRUE(" #cond ") failed"); \
-        } \
-    } while (0)
+#define assert_equal_size_t(expected, actual) \
+    assert_equal(expected, actual, "%zu")
 
-#define ASSERT_NULL(ptr) \
+#define assert_equal_ptr(expected, actual) \
+    assert_equal(expected, actual, "%p")
+
+#define assert_not_null(ptr) \
     do { \
         tests_run++; \
         if ((ptr) != NULL) { \
-            test_fail(__FILE__, __LINE__, "ASSERT_NULL(" #ptr ") failed: pointer is not NULL"); \
+            tests_passed++; \
+            printf(COLOR_GREEN "✓" COLOR_RESET " PASS: %s:%d - Pointer is not NULL\n", \
+                   __FILE__, __LINE__); \
+        } else { \
+            tests_failed++; \
+            printf(COLOR_RED "✗" COLOR_RESET " FAIL: %s:%d - Expected non-NULL pointer\n", \
+                   __FILE__, __LINE__); \
         } \
     } while (0)
 
-#define ASSERT_NOT_NULL(ptr) \
+#define assert_null(ptr) \
     do { \
         tests_run++; \
         if ((ptr) == NULL) { \
-            test_fail(__FILE__, __LINE__, "ASSERT_NOT_NULL(" #ptr ") failed: pointer is NULL"); \
+            tests_passed++; \
+            printf(COLOR_GREEN "✓" COLOR_RESET " PASS: %s:%d - Pointer is NULL\n", \
+                   __FILE__, __LINE__); \
+        } else { \
+            tests_failed++; \
+            printf(COLOR_RED "✗" COLOR_RESET " FAIL: %s:%d - Expected NULL pointer, got %p\n", \
+                   __FILE__, __LINE__, (void*)(ptr)); \
         } \
     } while (0)
 
-/* Optional: Print summary and exit with appropriate status */
-#define TEST_SUMMARY() \
+#define assert_true(condition) \
     do { \
-        printf("Tests run: %d, Failed: %d\n", tests_run, tests_failed); \
-        exit(tests_failed ? EXIT_FAILURE : EXIT_SUCCESS); \
+        tests_run++; \
+        if (condition) { \
+            tests_passed++; \
+            printf(COLOR_GREEN "✓" COLOR_RESET " PASS: %s:%d - Condition is true\n", \
+                   __FILE__, __LINE__); \
+        } else { \
+            tests_failed++; \
+            printf(COLOR_RED "✗" COLOR_RESET " FAIL: %s:%d - Expected true condition\n", \
+                   __FILE__, __LINE__); \
+        } \
     } while (0)
+
+#define assert_false(condition) \
+    do { \
+        tests_run++; \
+        if (!(condition)) { \
+            tests_passed++; \
+            printf(COLOR_GREEN "✓" COLOR_RESET " PASS: %s:%d - Condition is false\n", \
+                   __FILE__, __LINE__); \
+        } else { \
+            tests_failed++; \
+            printf(COLOR_RED "✗" COLOR_RESET " FAIL: %s:%d - Expected false condition\n", \
+                   __FILE__, __LINE__); \
+        } \
+    } while (0)
+
+/* Test summary functions */
+static inline void test_reset(void) {
+    tests_run = 0;
+    tests_passed = 0;
+    tests_failed = 0;
+}
+
+static inline void test_summary(void) {
+    printf("\n========================================\n");
+    printf("Test Summary:\n");
+    printf("  Total:  %d\n", tests_run);
+    printf(COLOR_GREEN "  Passed: %d\n" COLOR_RESET, tests_passed);
+    if (tests_failed > 0) {
+        printf(COLOR_RED "  Failed: %d\n" COLOR_RESET, tests_failed);
+    } else {
+        printf("  Failed: %d\n", tests_failed);
+    }
+    printf("========================================\n");
+
+    if (tests_failed == 0 && tests_run > 0) {
+        printf(COLOR_GREEN "All tests passed!\n" COLOR_RESET);
+    }
+}
 
 #endif
