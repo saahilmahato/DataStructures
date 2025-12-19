@@ -20,7 +20,7 @@ bool insert_first(ListNode **head, const int data) {
 
     newNode->data = data;
     newNode->next = *head;
-    newNode->prev = nullptr;
+    newNode->prev = NULL;
 
     if (*head)
         (*head)->prev = newNode;
@@ -36,10 +36,10 @@ bool insert_last(ListNode **head, const int data) {
         return false;
 
     newNode->data = data;
-    newNode->next = nullptr;
+    newNode->next = NULL;
 
     if (!*head) {
-        newNode->prev = nullptr;
+        newNode->prev = NULL;
         *head = newNode;
         return true;
     }
@@ -92,7 +92,7 @@ bool delete_first(ListNode **head) {
     *head = (*head)->next;
 
     if (*head)
-        (*head)->prev = nullptr;
+        (*head)->prev = NULL;
 
     free(toDelete);
 
@@ -105,7 +105,7 @@ bool delete_last(ListNode **head) {
 
     if (!(*head)->next) {
         free(*head);
-        *head = nullptr;
+        *head = NULL;
         return true;
     }
 
@@ -114,7 +114,7 @@ bool delete_last(ListNode **head) {
         current = current->next;
 
     free(current->next);
-    current->next = nullptr;
+    current->next = NULL;
 
     return true;
 }
@@ -155,5 +155,5 @@ void delete_list(ListNode **head) {
         free(toDelete);
     }
 
-    *head = nullptr;
+    *head = NULL;
 }

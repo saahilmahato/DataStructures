@@ -14,4 +14,5 @@ add_executable(DSA main.c
         stack/linked_list_stack/linked_list_stack.c
         tree/tree.c
         test/test.h
-        linked_list/circular_linked_list/main.c)
+        linked_list/circular_linked_list/main.c
+        linked_list/doubly_linked_list/main.c)
