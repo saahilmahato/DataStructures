@@ -31,7 +31,7 @@ bool insert_last(ListNode **head, const int data) {
         return false;
 
     newNode->data = data;
-    newNode->next = nullptr;
+    newNode->next = NULL;
 
     if (!*head) {
         *head = newNode;
@@ -90,7 +90,7 @@ bool delete_last(ListNode **head) {
 
     if (!(*head)->next) {
         free(*head);
-        *head = nullptr;
+        *head = NULL;
         return true;
     }
 
@@ -99,7 +99,7 @@ bool delete_last(ListNode **head) {
         current = current->next;
 
     free(current->next);
-    current->next = nullptr;
+    current->next = NULL;
 
     return true;
 }
@@ -135,5 +135,5 @@ void delete_list(ListNode **head) {
         free(toDelete);
     }
 
-    *head = nullptr;
+    *head = NULL;
 }

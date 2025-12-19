@@ -1,6 +1,8 @@
 #ifndef SINGLY_LINKED_LIST_H
 #define SINGLY_LINKED_LIST_H
 
+#include <stdbool.h>
+
 typedef struct ListNode {
     int data;
     struct ListNode *next;
