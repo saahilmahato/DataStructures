@@ -1,6 +1,8 @@
 #ifndef ARRAY_QUEUE_H
 #define ARRAY_QUEUE_H
 
+#include <stdbool.h>
+
 #define INITIAL_CAPACITY 8
 #define GROWTH_FACTOR 2
 

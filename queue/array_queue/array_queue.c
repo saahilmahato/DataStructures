@@ -6,12 +6,12 @@
 Queue *create_queue(void) {
     Queue *q = malloc(sizeof(*q));
     if (!q)
-        return nullptr;
+        return NULL;
 
     q->array = malloc(INITIAL_CAPACITY * sizeof(int));
     if (!q->array) {
         free(q);
-        return nullptr;
+        return NULL;
     }
 
     q->capacity = INITIAL_CAPACITY;
@@ -46,7 +46,7 @@ void delete_queue(Queue **q) {
     if (q && *q) {
         free((*q)->array);
         free(*q);
-        *q = nullptr;
+        *q = NULL;
     }
 }
 

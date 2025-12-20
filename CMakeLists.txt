@@ -16,4 +16,5 @@ add_executable(DSA main.c
         test/test.h
         linked_list/circular_linked_list/main.c
         linked_list/doubly_linked_list/main.c
-        linked_list/singly_linked_list/main.c)
+        linked_list/singly_linked_list/main.c
+        queue/array_queue/main.c)
