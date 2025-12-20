@@ -1,6 +1,8 @@
 #ifndef LINKED_LIST_QUEUE_H
 #define LINKED_LIST_QUEUE_H
 
+#include <stdbool.h>
+
 typedef struct ListNode {
     int data;
     struct ListNode *next;

@@ -5,10 +5,10 @@
 Queue *create_queue(void) {
     Queue *q = malloc(sizeof(*q));
     if (!q)
-        return nullptr;
+        return NULL;
 
-    q->front = nullptr;
-    q->rear = nullptr;
+    q->front = NULL;
+    q->rear = NULL;
     q->size = 0;
 
     return q;
@@ -23,7 +23,7 @@ void delete_queue(Queue **q) {
         }
 
         free(*q);
-        *q = nullptr;
+        *q = NULL;
     }
 }
 
@@ -36,7 +36,7 @@ bool enqueue(Queue *q, const int value) {
         return false;
 
     newNode->data = value;
-    newNode->next = nullptr;
+    newNode->next = NULL;
 
     if (is_empty(q)) {
         q->front = newNode;
@@ -63,7 +63,7 @@ bool dequeue(Queue *q, int *out_value) {
     free(toDelete);
 
     if (!q->front)
-        q->rear = nullptr;
+        q->rear = NULL;
 
     q->size--;
 
