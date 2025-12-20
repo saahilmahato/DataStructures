@@ -19,4 +19,5 @@ add_executable(DSA main.c
         linked_list/singly_linked_list/main.c
         queue/array_queue/main.c
         queue/linked_list_queue/main.c
-        stack/array_stack/main.c)
+        stack/array_stack/main.c
+        stack/linked_list_stack/main.c)

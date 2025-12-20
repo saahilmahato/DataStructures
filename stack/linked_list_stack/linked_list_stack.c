@@ -5,7 +5,7 @@
 Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));
     if (stack)
-        stack->top = nullptr;
+        stack->top = NULL;
 
     return stack;
 }
@@ -19,7 +19,7 @@ void delete_stack(Stack **stack) {
         }
 
         free(*stack);
-        *stack = nullptr;
+        *stack = NULL;
     }
 }
 

@@ -1,6 +1,8 @@
 #ifndef LINKED_LIST_STACK_H
 #define LINKED_LIST_STACK_H
 
+#include <stdbool.h>
+
 typedef struct ListNode {
     int data;
     struct ListNode *next;
