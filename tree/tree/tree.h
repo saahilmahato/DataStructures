@@ -15,4 +15,6 @@ void preorder_traversal(TreeNode *root);
 
 void postorder_traversal(TreeNode *root);
 
+void delete_tree(TreeNode **root);
+
 #endif

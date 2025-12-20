@@ -6,7 +6,7 @@
 TreeNode *create_tree(void) {
     TreeNode *root = malloc(sizeof(*root));
     if (!root)
-        return nullptr;
+        return NULL;
 
     return root;
 }
@@ -36,4 +36,15 @@ void postorder_traversal(TreeNode *root) {
     postorder_traversal(root->left);
     postorder_traversal(root->right);
     printf("%d", root->data);
+}
+
+void delete_tree(TreeNode **root) {
+    if (!root || !*root)
+        return;
+
+    delete_tree(&(*root)->left);
+    delete_tree(&(*root)->right);
+
+    free(*root);
+    *root = NULL;
 }

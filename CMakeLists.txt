@@ -12,7 +12,7 @@ add_executable(DSA main.c
         queue/linked_list_queue/linked_list_queue.c
         stack/array_stack/array_stack.c
         stack/linked_list_stack/linked_list_stack.c
-        tree/tree.c
+        tree/tree/tree.c
         test/test.h
         linked_list/circular_linked_list/main.c
         linked_list/doubly_linked_list/main.c
@@ -20,4 +20,5 @@ add_executable(DSA main.c
         queue/array_queue/main.c
         queue/linked_list_queue/main.c
         stack/array_stack/main.c
-        stack/linked_list_stack/main.c)
+        stack/linked_list_stack/main.c
+        tree/tree/main.c)
