@@ -1,6 +1,8 @@
 #ifndef ARRAY_STACK_H
 #define ARRAY_STACK_H
 
+#include <stdbool.h>
+
 #define INITIAL_CAPACITY 10
 #define GROWTH_FACTOR 2
 

@@ -243,5 +243,5 @@ int main(void) {
 
     test_summary();
 
-    return tests_failed == 0 ? 0 : 1;
+    return tests_failed;
 }

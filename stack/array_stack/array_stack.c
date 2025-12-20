@@ -6,12 +6,12 @@
 Stack *create_stack() {
     Stack *stack = malloc(sizeof(*stack));
     if (!stack)
-        return nullptr;
+        return NULL;
 
     stack->array = malloc(INITIAL_CAPACITY * sizeof(*stack->array));
     if (!stack->array) {
         free(stack);
-        return nullptr;
+        return NULL;
     }
 
     stack->top = -1;
@@ -39,7 +39,7 @@ void delete_stack(Stack **stack) {
     if (stack && *stack) {
         free((*stack)->array);
         free(*stack);
-        *stack = nullptr;
+        *stack = NULL;
     }
 }
 
