@@ -21,4 +21,7 @@ add_executable(DSA main.c
         queue/linked_list_queue/main.c
         stack/array_stack/main.c
         stack/linked_list_stack/main.c
-        tree/tree/main.c)
+        tree/tree/main.c
+        tree/binary_search_tree/binary_search_tree.h
+        tree/binary_search_tree/binary_search_tree.c
+        tree/binary_search_tree/main.c)
