@@ -24,4 +24,7 @@ add_executable(DSA main.c
         tree/tree/main.c
         tree/binary_search_tree/binary_search_tree.h
         tree/binary_search_tree/binary_search_tree.c
-        tree/binary_search_tree/main.c)
+        tree/binary_search_tree/main.c
+        heap/min_heap/min_heap.h
+        heap/min_heap/min_heap.c
+        heap/min_heap/main.c)
