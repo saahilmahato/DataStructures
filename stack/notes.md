@@ -1,4 +1,4 @@
-## 1. Abstract Data Type: Stack
+## Abstract Data Type: Stack
 
 A **stack** is a linear abstract data type (ADT) that models a collection of elements with a **Last-In-First-Out (LIFO)** discipline. Elements are inserted and removed only from one end, called the **top** of the stack.
 
