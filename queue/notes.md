@@ -1,4 +1,4 @@
-## Abstract Data Type: Queue
+## Queue
 
 A **queue** is a linear abstract data type (ADT) that models a collection of elements with a **First-In-First-Out (FIFO)** discipline. Elements are inserted at one end, called the **rear**, and removed from the other end, called the **front**.
 

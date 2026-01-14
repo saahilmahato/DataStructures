@@ -1,4 +1,4 @@
-## Abstract Data Type: Tree
+## Tree
 
 A **tree** is a hierarchical, non-linear abstract data type (ADT) that models a collection of **nodes** connected by **edges**, forming an acyclic, connected structure with a distinguished **root** node. Each node (except the root) has exactly one **parent**, and zero or more **children**. Trees generalize linear structures by allowing branching and are fundamental for representing hierarchies, ordered data, and efficient search/update operations.
 

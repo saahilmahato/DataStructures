@@ -1,6 +1,6 @@
-## Data Structure: Singly Linked List
+## Linked List
 
-A **singly linked list** is a linear data structure consisting of a sequence of **nodes**, where each node contains an element (data) and a reference (pointer/link) to the **next** node in the sequence. The list is accessed through a **head** pointer to the first node; the last node's next reference is `null` (or `nullptr`).
+A **linked list** is a linear data structure consisting of a sequence of **nodes**, where each node contains an element (data) and a reference (pointer/link) to the **next** node in the sequence. The list is accessed through a **head** pointer to the first node; the last node's next reference is `null` (or `nullptr`).
 
 ### Core Intuition
 - Imagine a chain of people holding hands facing forward: you can only move forward from one person to the next, but not backward. To reach someone in the middle, you must start from the beginning and follow the chain.
